@@ -1,0 +1,195 @@
+[
+    {
+        "id": "7a9f8fc1.6bb09",
+        "type": "inject",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "12b967ef.bf1218"
+            ]
+        ]
+    },
+    {
+        "id": "12b967ef.bf1218",
+        "type": "http request",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://api.openweathermap.org/data/2.5/weather?id=3445831&units=metric&APPID=c6905e970373c3afa651fccaed9919b8",
+        "tls": "",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "84a83794.ddac08"
+            ]
+        ]
+    },
+    {
+        "id": "416e4603.159ee8",
+        "type": "debug",
+        "z": "ac50a3e8.52eda",
+        "name": "Temperatura",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 570,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "84a83794.ddac08",
+        "type": "json",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "37fc54ae.3dcdac",
+                "72f0798e.b8d468",
+                "b95b6561.628138",
+                "c44a8c26.eb818"
+            ]
+        ]
+    },
+    {
+        "id": "37fc54ae.3dcdac",
+        "type": "change",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.main.temp",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "416e4603.159ee8"
+            ]
+        ]
+    },
+    {
+        "id": "72f0798e.b8d468",
+        "type": "debug",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 530,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b0be30a9.d3775",
+        "type": "debug",
+        "z": "ac50a3e8.52eda",
+        "name": "Temperatura Minima",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 600,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b95b6561.628138",
+        "type": "change",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.main.temp_min",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "b0be30a9.d3775"
+            ]
+        ]
+    },
+    {
+        "id": "b97a1b14.b36ed8",
+        "type": "debug",
+        "z": "ac50a3e8.52eda",
+        "name": "TemperaturaMaxima",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c44a8c26.eb818",
+        "type": "change",
+        "z": "ac50a3e8.52eda",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.main.temp_max",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "b97a1b14.b36ed8"
+            ]
+        ]
+    }
+]

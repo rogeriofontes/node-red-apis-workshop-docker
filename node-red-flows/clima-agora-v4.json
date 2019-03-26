@@ -1,0 +1,300 @@
+[
+    {
+        "id": "5b68657d.79673c",
+        "type": "tab",
+        "label": "Clima Agora V4",
+        "disabled": false,
+        "info": "Fluxo com persistância no MongoDB"
+    },
+    {
+        "id": "d723b222.75755",
+        "type": "inject",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "3600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "4d73391d.ee79e8"
+            ]
+        ]
+    },
+    {
+        "id": "4d73391d.ee79e8",
+        "type": "http request",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://api.openweathermap.org/data/2.5/weather?id=3445831&units=metric&APPID=c6905e970373c3afa651fccaed9919b8",
+        "tls": "",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "d6d69e42.bd2f4"
+            ]
+        ]
+    },
+    {
+        "id": "d6d69e42.bd2f4",
+        "type": "json",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "28b9c0bd.eacac",
+                "2a77c864.f3d778",
+                "5b582d9e.f318e4",
+                "13bd488c.b6c5f7",
+                "b4eec66c.54c8a8"
+            ]
+        ]
+    },
+    {
+        "id": "28b9c0bd.eacac",
+        "type": "debug",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 590,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2a77c864.f3d778",
+        "type": "function",
+        "z": "5b68657d.79673c",
+        "name": "InformacoesTemperatura",
+        "func": "msg.payload = { \"date\":new Date(),\"temperatura\":Math.round(msg.payload.main.temp), \"maxima\":Math.round(msg.payload.main.temp_max), \"minima\":Math.round(msg.payload.main.temp_min), \"humidade\":Math.round(msg.payload.main.humidity)}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "4c36f95f.b093e8",
+                "1c87a27.494075e"
+            ]
+        ]
+    },
+    {
+        "id": "4c36f95f.b093e8",
+        "type": "debug",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 530,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "79b42a15.d91f04",
+        "type": "ui_gauge",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "group": "87aeb1b6.e22e8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura Minima",
+        "label": "celcius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#87b58f",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5b582d9e.f318e4",
+        "type": "change",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.main.temp_min",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "79b42a15.d91f04"
+            ]
+        ]
+    },
+    {
+        "id": "13bd488c.b6c5f7",
+        "type": "change",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.main.temp_max",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "ff469185.b0a08"
+            ]
+        ]
+    },
+    {
+        "id": "ff469185.b0a08",
+        "type": "ui_gauge",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "group": "87aeb1b6.e22e8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura Máxima",
+        "label": "celcius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#87b58f",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 580,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b4eec66c.54c8a8",
+        "type": "function",
+        "z": "5b68657d.79673c",
+        "name": "Temperatura",
+        "func": "msg.payload = Math.round(msg.payload.main.temp)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "cc344255.6e99e"
+            ]
+        ]
+    },
+    {
+        "id": "cc344255.6e99e",
+        "type": "ui_gauge",
+        "z": "5b68657d.79673c",
+        "name": "",
+        "group": "87aeb1b6.e22e8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "celcius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#87b58f",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 610,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1c87a27.494075e",
+        "type": "mongodb out",
+        "z": "5b68657d.79673c",
+        "mongodb": "65b579bc.338878",
+        "name": "",
+        "collection": "test",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "store",
+        "x": 510,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "87aeb1b6.e22e8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Clima",
+        "tab": "242cc3f4.7f1bdc",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "65b579bc.338878",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "192.168.15.101",
+        "port": "27017",
+        "db": "node-red",
+        "name": ""
+    },
+    {
+        "id": "242cc3f4.7f1bdc",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Previsao",
+        "icon": "dashboard"
+    }
+]

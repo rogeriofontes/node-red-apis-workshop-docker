@@ -1,0 +1,100 @@
+[
+    {
+        "id": "5dba4e48.ea2a4",
+        "type": "inject",
+        "z": "6677efeb.f6a7a",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "b184e8d7.7050f8"
+            ]
+        ]
+    },
+    {
+        "id": "b184e8d7.7050f8",
+        "type": "http request",
+        "z": "6677efeb.f6a7a",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://api.openweathermap.org/data/2.5/weather?id=3445831&units=metric&APPID=c6905e970373c3afa651fccaed9919b8",
+        "tls": "",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "e61bb313.a2d01"
+            ]
+        ]
+    },
+    {
+        "id": "e61bb313.a2d01",
+        "type": "json",
+        "z": "6677efeb.f6a7a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "7768566b.241b18",
+                "78616056.699a1"
+            ]
+        ]
+    },
+    {
+        "id": "7768566b.241b18",
+        "type": "debug",
+        "z": "6677efeb.f6a7a",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 550,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "78616056.699a1",
+        "type": "function",
+        "z": "6677efeb.f6a7a",
+        "name": "InformacoesTemperatura",
+        "func": "msg.payload = { \"temperatura\":Math.round(msg.payload.main.temp), \"maxima\":Math.round(msg.payload.main.temp_max), \"minima\":Math.round(msg.payload.main.temp_min), \"humidade\":Math.round(msg.payload.main.humidity)}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "88bc588c.dda298"
+            ]
+        ]
+    },
+    {
+        "id": "88bc588c.dda298",
+        "type": "debug",
+        "z": "6677efeb.f6a7a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 600,
+        "y": 180,
+        "wires": []
+    }
+]

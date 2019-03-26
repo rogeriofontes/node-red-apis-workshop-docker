@@ -1,0 +1,62 @@
+[
+    {
+        "id": "aafa6111.6a36d",
+        "type": "tab",
+        "label": "Clima Agora - Lista Dados",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "24c7c9b5.a1d316",
+        "type": "http in",
+        "z": "aafa6111.6a36d",
+        "name": "",
+        "url": "/clima-agora/temperaturas",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 120,
+        "wires": [
+            [
+                "e38c71ac.3ef66"
+            ]
+        ]
+    },
+    {
+        "id": "129847ba.f91128",
+        "type": "http response",
+        "z": "aafa6111.6a36d",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 620,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e38c71ac.3ef66",
+        "type": "mongodb in",
+        "z": "aafa6111.6a36d",
+        "mongodb": "65b579bc.338878",
+        "name": "",
+        "collection": "test",
+        "operation": "find",
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "129847ba.f91128"
+            ]
+        ]
+    },
+    {
+        "id": "65b579bc.338878",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "192.168.15.101",
+        "port": "27017",
+        "db": "node-red",
+        "name": ""
+    }
+]

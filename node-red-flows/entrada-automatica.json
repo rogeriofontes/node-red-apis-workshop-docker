@@ -1,0 +1,102 @@
+[
+    {
+        "id": "7ba81d6d.0c3ec4",
+        "type": "inject",
+        "z": "e5fcc0be.17d2",
+        "name": "",
+        "topic": "temperatura",
+        "payload": "22",
+        "payloadType": "num",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "f21dec9d.896fc",
+                "8b08c596.f07c48"
+            ]
+        ]
+    },
+    {
+        "id": "f21dec9d.896fc",
+        "type": "debug",
+        "z": "e5fcc0be.17d2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "x": 450,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d1796fe7.8e42c",
+        "type": "debug",
+        "z": "e5fcc0be.17d2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6682df69.2ebaa",
+        "type": "function",
+        "z": "e5fcc0be.17d2",
+        "name": "formataPayload",
+        "func": "msg.payload = { \"topic\":msg.topic, \"payload\": msg.payload }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 300,
+        "wires": [
+            [
+                "d1796fe7.8e42c"
+            ]
+        ]
+    },
+    {
+        "id": "8b08c596.f07c48",
+        "type": "random",
+        "z": "e5fcc0be.17d2",
+        "name": "",
+        "low": "20",
+        "high": "40",
+        "inte": "true",
+        "property": "payload",
+        "x": 200,
+        "y": 200,
+        "wires": [
+            [
+                "f5d66b95.0dfd58"
+            ]
+        ]
+    },
+    {
+        "id": "f5d66b95.0dfd58",
+        "type": "smooth",
+        "z": "e5fcc0be.17d2",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "2",
+        "round": "1",
+        "mult": "single",
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "6682df69.2ebaa"
+            ]
+        ]
+    }
+]

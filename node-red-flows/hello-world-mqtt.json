@@ -1,0 +1,140 @@
+[
+    {
+        "id": "62569aeb.8e4554",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d534b86d.5e6af8",
+        "type": "inject",
+        "z": "62569aeb.8e4554",
+        "name": "",
+        "topic": "laboratorio",
+        "payload": "Hello",
+        "payloadType": "str",
+        "repeat": "600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "39c5038d.268aac",
+                "a0ce8e98.c72ea"
+            ]
+        ]
+    },
+    {
+        "id": "39c5038d.268aac",
+        "type": "debug",
+        "z": "62569aeb.8e4554",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c9c1d13d.2dfff",
+        "type": "debug",
+        "z": "62569aeb.8e4554",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 550,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a0ce8e98.c72ea",
+        "type": "function",
+        "z": "62569aeb.8e4554",
+        "name": "formataPayload",
+        "func": "msg.payload = { \"topic\":msg.topic, \"payload\": msg.payload }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "c9c1d13d.2dfff",
+                "a3f61365.aaba"
+            ]
+        ]
+    },
+    {
+        "id": "a3f61365.aaba",
+        "type": "mqtt out",
+        "z": "62569aeb.8e4554",
+        "name": "",
+        "topic": "temperatura",
+        "qos": "",
+        "retain": "",
+        "broker": "26fb2176.0a2e7e",
+        "x": 440,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ec1e0cf0.f4418",
+        "type": "mqtt in",
+        "z": "62569aeb.8e4554",
+        "name": "",
+        "topic": "temperatura",
+        "qos": "2",
+        "broker": "26fb2176.0a2e7e",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "22c32ec0.1cd432"
+            ]
+        ]
+    },
+    {
+        "id": "22c32ec0.1cd432",
+        "type": "debug",
+        "z": "62569aeb.8e4554",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 410,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "26fb2176.0a2e7e",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "host",
+        "broker": "192.168.15.101",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
